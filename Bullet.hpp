@@ -22,6 +22,7 @@ class Bullet
 
 	void	hitBox(Ship &ship, Player &player);
 	void	hitBox(Ast &ast, Player &player);
+	void	hitBox(Player &player);
 
 	private:
 	int		_x;

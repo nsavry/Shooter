@@ -3,6 +3,8 @@
 #include <ctime>
 #include <cstdlib>
 
+#include <unistd.h>
+
 #include "Ship.hpp"
 #include "Ast.hpp"
 #include "Star.hpp"
@@ -12,29 +14,31 @@
 void	displayEdge(void)
 {
 	int		i;
+	char	c;
 	
 	i = 0;
+	c = ' ';
 	while (i < 99)
 	{
-		mvprintw(3, 3 + i, "+");
+		mvaddch(3, 3 + i, c|COLOR_PAIR(1));
 		i++;
 	}
 	i = 0;
 	while (i < 29)
 	{
-		mvprintw(3 + i, 3, "+");
+		mvaddch(3 + i, 3, c|COLOR_PAIR(1));
 		i++;
 	}
 	i = 0;
 	while (i < 29)
 	{
-		mvprintw(3 + i, 101, "+");
+		mvaddch(3 + i , 101, c|COLOR_PAIR(1));
 		i++;
 	}
 	i = 0;
 	while (i < 99)
 	{
-		mvprintw(31, 3 + i, "+");
+		mvaddch(31, 3 + i, c|COLOR_PAIR(1));
 		i++;
 	}
 }
@@ -120,7 +124,7 @@ void	displayEnemy(Ship *ship, Player *player)
 	{
 		ship[i].hitBox(*player);	
 		if (ship[i].getStatus())
-			mvprintw(ship[i].getY(), ship[i].getX(), ")");
+			mvaddch(ship[i].getY(), ship[i].getX(), ')'|COLOR_PAIR(5));
 		i++;
 	}
 }
@@ -215,9 +219,54 @@ void	displayAst(Ast *ast, Player *player)
 	{
 		ast[i].hitBox(*player);	
 		if (ast[i].getStatus())
-			mvprintw(ast[i].getY(), ast[i].getX(), "#");
+			mvaddch(ast[i].getY(), ast[i].getX(), '#'|COLOR_PAIR(2));
 		i++;
 	}
+}
+
+void	displayEnemyBullet(Bullet *bul, Ship *ship, Player *play)
+{
+	int		k;
+	int		rd;
+	int		i;
+
+	k = 0;
+	while (k < 50)
+	{
+		if (ship[k].getStatus())
+		{
+			rd = rand() % 200;
+			if (rd == 0)
+			{	
+				i = 0;
+				while (bul[i].getY() < 100 && i < 100)
+					i++;
+				bul[i].setX(ship[k].getY());
+				bul[i].setY(ship[k].getX() - 1);
+			}
+		}
+		k++;
+	}
+	i = 0;
+	while (i < 100)
+	{
+		if (bul[i].getY() == 3)
+			bul[i].setY(200);
+		mvaddch(bul[i].getX(), bul[i].getY(), '}'|COLOR_PAIR(3));
+		bul[i].setY(bul[i].getY() - 1);
+		bul[i].hitBox(*play);
+		i++;
+	}
+}
+		
+void	initColor(void)
+{
+	start_color();
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_CYAN, COLOR_BLACK);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+	init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(5, COLOR_YELLOW, COLOR_BLACK);
 }
 
 int		main(void)
@@ -226,6 +275,7 @@ int		main(void)
 	int		i;
 	int		iframe;
 	Bullet	*bul = new Bullet[200];
+	Bullet	*bulEn = new Bullet[100];
 	Ship	*ship = new Ship[50];
 	Ast		*ast = new Ast[50];
 	Star	*stars = new Star[100];
@@ -233,33 +283,34 @@ int		main(void)
 
 	key = 0;
 	iframe = 0;
-	
+
 	srand(time(NULL));
 	
 	initscr();
+	initColor();
 	keypad(stdscr, TRUE);
 	curs_set(0);
 	nodelay(stdscr, TRUE);
 	
 	while (key != 'q' && player->getLife() > 0)
 	{
-		i = 0;
-		while (i++ < 9000000);
+		usleep(19000);
 		
 		clear();
-		
-		displayEdge();
-		displayText(player);
 		
 		spawnStars(stars, iframe);
 		spawnEnemy(ship, iframe);
 		spawnAst(ast, iframe);
 
-		displayBullet(bul, ship, ast, player);
+		displayText(player);
+		displayEdge();
 		displayStars(stars);
 		displayEnemy(ship, player);
 		displayAst(ast, player);
-		mvprintw(player->getX(), player->getY(), ">");
+		displayBullet(bul, ship, ast, player);
+		displayEnemyBullet(bulEn, ship, player);
+		
+		mvaddch(player->getX(), player->getY(), '>'|COLOR_PAIR(4));
 		
 		key = getch();
 		

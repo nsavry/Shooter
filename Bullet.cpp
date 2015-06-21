@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Bullet.hpp"
 
-Bullet::Bullet(void): _x(160), _y(160)
+Bullet::Bullet(void): _x(300), _y(300)
 {
 }
 
@@ -69,5 +69,16 @@ void		Bullet::hitBox(Ast &ast, Player &player)
 		ast.setX(300);
 		ast.setY(300);
 		player.setScore(player.getScore() + 500);
+	}
+}
+
+void		Bullet::hitBox(Player &player)
+{
+	if (player.getY() == this->_y && player.getX() == this->_x)
+	{
+		this->_y = 200;
+		player.setLife(player.getLife() - 1);
+		player.setX(17);
+		player.setY(10);
 	}
 }
