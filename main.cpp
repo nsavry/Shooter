@@ -82,7 +82,7 @@ void	spawnEnemy(Ship *ship, int aff)
 	int		test;
 	int		i;
 
-	if (aff < 2)
+	if (aff % 10 == 1) 
 	{
 		i = 0;
 		while (ship[i].getStatus())
@@ -236,9 +236,6 @@ int		main(void)
 	
 	srand(time(NULL));
 	
-	//start_color();
-	//init_pair(0, COLOR_YELLOW, COLOR_BLACK);
-	
 	initscr();
 	keypad(stdscr, TRUE);
 	curs_set(0);
@@ -286,7 +283,7 @@ int		main(void)
 		}
 
 		iframe++;
-		if (iframe == 20)
+		if (iframe == 100)
 			iframe = 0;
 	}
 

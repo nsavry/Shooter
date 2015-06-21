@@ -54,6 +54,8 @@ void		Bullet::hitBox(Ship &ship, Player &player)
 	{
 		this->_y = 200;
 		ship.setStatus(false);
+		ship.setX(300);
+		ship.setY(300);
 		player.setScore(player.getScore() + 100);
 	}
 }	
@@ -64,6 +66,8 @@ void		Bullet::hitBox(Ast &ast, Player &player)
 	{
 		this->_y = 200;
 		ast.setStatus(false);
+		ast.setX(300);
+		ast.setY(300);
 		player.setScore(player.getScore() + 500);
 	}
 }

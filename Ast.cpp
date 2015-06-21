@@ -57,6 +57,8 @@ void			Ast::hitBox(Player &player)
 	if (this->_posY == player.getX() && this->_posX == player.getY())
 	{
 		this->_status = false;
+		this->_posX = 300;
+		this->_posY = 300;
 		player.setLife(player.getLife() - 1);
 		player.setX(17);
 		player.setY(10);
