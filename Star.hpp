@@ -1,16 +1,16 @@
-#ifndef Ship_hpp
-# define Ship_hpp
+#ifndef Star_hpp
+# define Star_hpp
 
 # include "Player.hpp"
 
-class Ship
+class Star
 {
 	public:
-	Ship(void);
-	Ship(Ship const &rhs);
-	~Ship(void);
+	Star(void);
+	Star(Star const &rhs);
+	~Star(void);
 
-	Ship			&operator=(Ship const &rhs);
+	Star			&operator=(Star const &rhs);
 
 	bool			getStatus(void) const;
 	void			setStatus(bool isAlive);

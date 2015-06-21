@@ -47,3 +47,23 @@ void		Bullet::setY(int y)
 {
 	this->_y = y;
 }
+
+void		Bullet::hitBox(Ship &ship, Player &player)
+{
+	if (ship.getX() == this->_y && ship.getY() == this->_x)
+	{
+		this->_y = 200;
+		ship.setStatus(false);
+		player.setScore(player.getScore() + 100);
+	}
+}	
+
+void		Bullet::hitBox(Ast &ast, Player &player)
+{
+	if (ast.getX() == this->_y && ast.getY() == this->_x)
+	{
+		this->_y = 200;
+		ast.setStatus(false);
+		player.setScore(player.getScore() + 500);
+	}
+}

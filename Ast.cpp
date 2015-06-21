@@ -1,20 +1,20 @@
 #include <iostream>
-#include "Ship.hpp"
+#include "Ast.hpp"
 
-Ship::Ship(void): _status(false)
+Ast::Ast(void): _status(false)
 {
 }
 
-Ship::Ship(Ship const &src)
+Ast::Ast(Ast const &src)
 {
 	*this = src;
 }
 
-Ship::~Ship(void)
+Ast::~Ast(void)
 {
 }
 
-Ship		&Ship::operator=(Ship const &rhs)
+Ast		&Ast::operator=(Ast const &rhs)
 {
 	if (this != &rhs) {
 		this->_status = rhs.getStatus();
@@ -22,37 +22,37 @@ Ship		&Ship::operator=(Ship const &rhs)
 	return *this;
 }
 
-int				Ship::getY() const
+int				Ast::getY() const
 {
 	return (this->_posY);
 }
 
-int				Ship::getX() const
+int				Ast::getX() const
 {
 	return (this->_posX);
 }
 
-void			Ship::setY(int y)
+void			Ast::setY(int y)
 {
 	this->_posY = y;
 }
 
-void			Ship::setX(int x)
+void			Ast::setX(int x)
 {
 	this->_posX = x;
 }
 
-bool			Ship::getStatus(void) const
+bool			Ast::getStatus(void) const
 {
 	return (this->_status);
 }
 
-void			Ship::setStatus(bool isAlive)
+void			Ast::setStatus(bool isAlive)
 {
 	this->_status = isAlive;
 }
 
-void			Ship::hitBox(Player &player)
+void			Ast::hitBox(Player &player)
 {
 	if (this->_posY == player.getX() && this->_posX == player.getY())
 	{

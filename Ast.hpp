@@ -1,16 +1,16 @@
-#ifndef Ship_hpp
-# define Ship_hpp
+#ifndef Ast_hpp
+# define Ast_hpp
 
 # include "Player.hpp"
 
-class Ship
+class Ast
 {
 	public:
-	Ship(void);
-	Ship(Ship const &rhs);
-	~Ship(void);
+	Ast(void);
+	Ast(Ast const &rhs);
+	~Ast(void);
 
-	Ship			&operator=(Ship const &rhs);
+	Ast			&operator=(Ast const &rhs);
 
 	bool			getStatus(void) const;
 	void			setStatus(bool isAlive);
