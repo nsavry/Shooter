@@ -337,7 +337,6 @@ int		main(void)
 		if (iframe == 100)
 			iframe = 0;
 	}
-
 	clear();
 	refresh();
 	endwin();
