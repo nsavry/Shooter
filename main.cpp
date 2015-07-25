@@ -134,7 +134,7 @@ void	spawnStars(Star *star, int aff)
 	int		test;
 	int		i;
 
-	if (aff % 3)
+	if (aff % 2)
 	{
 		i = 0;
 		while (star[i].getStatus())
@@ -181,7 +181,7 @@ void	spawnAst(Ast *ast, int aff)
 	int		test;
 	int		i;
 
-	if (aff % 2)
+	if (aff % 3)
 	{
 		i = 0;
 		while (ast[i].getStatus())
@@ -251,10 +251,13 @@ void	displayEnemyBullet(Bullet *bul, Ship *ship, Player *play)
 	while (i < 100)
 	{
 		if (bul[i].getY() == 3)
-			bul[i].setY(200);
-		mvaddch(bul[i].getX(), bul[i].getY(), '}'|COLOR_PAIR(3));
-		bul[i].setY(bul[i].getY() - 1);
-		bul[i].hitBox(*play);
+			bul[i].setY(500);
+		if (bul[i].getY() < 200)
+		{
+			mvaddch(bul[i].getX(), bul[i].getY(), ':'|COLOR_PAIR(3));
+			bul[i].setY(bul[i].getY() - 1);
+			bul[i].hitBox(*play);
+		}
 		i++;
 	}
 }
